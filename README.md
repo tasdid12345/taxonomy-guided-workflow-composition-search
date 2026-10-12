@@ -17,6 +17,28 @@ python analysis.py
 
 **Results:** results are written to `results.json` (and a chart to `figures/`).
 
+## Results (latest run)
+
+On the synthetic typed-tool test set (18 instances), a standard breadth-first type-state search averaged 0.0540 s (std 0.0687 s), while the taxonomy-guided best-first search with backward pruning averaged 0.000159 s (std 0.000105 s); both solved 100% and agreed on all 18 yes/no answers.
+
+| Metric | Value |
+|---|---|
+| baseline_score | 0.05398 |
+| improved_score | 0.0001586 |
+| improvement | 0.05382 |
+| baseline_runtime_std | 0.0687 |
+| improved_runtime_std | 0.0001045 |
+| baseline_solved_frac | 1 |
+| improved_solved_frac | 1 |
+| n_test | 18 |
+| n_compared | 18 |
+| n_agree | 18 |
+| n_valid_chains_found | 11 |
+
+Run on 2026-10-12. Full output: [results.json](results.json) · [run.log](run.log)
+
+Notes: Synthetic domain, not the paper's pizza data; not the paper's ASP/Clingo or APE system. Both methods are deterministic, so seeds 42-44 repetition is not needed. Nothing is tuned; the train split is reserved and unused, and all metrics are on the test split. Runtimes are capped at the per-instance budget and depend on the machine. Unsolved-in-budget instances are excluded from the yes/no agreement check. The distance heuristic is not admissible; it only orders the search.
+
 ## Reference
 
 This project is motivated by the following paper:
