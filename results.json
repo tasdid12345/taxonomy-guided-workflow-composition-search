@@ -1,0 +1,31 @@
+{
+  "question": "Can a taxonomy-guided search with backward type pruning find valid analysis workflows faster and with less runtime variance than a standard breadth-first type-state search on a synthetic typed-tool domain?",
+  "method": "Seeded synthetic taxonomy and tool library; per instance, search for a tool chain of length <= 15 from start type to goal type; compare runtime, solved fraction and runtime std under a fixed per-instance budget; verify identical yes/no answers.",
+  "dataset": {
+    "name": "synthetic typed-tool domain (seeded numpy, pizza-like scale)",
+    "source_url": "none (generated in analysis.py)",
+    "n_rows": 60,
+    "n_train": 42,
+    "n_test": 18,
+    "same_as_paper": false,
+    "baseline_is_papers_method": false
+  },
+  "metric_name": "mean wall-clock runtime per instance (s)",
+  "higher_is_better": false,
+  "baseline": "Breadth-first forward search over type-states (sets of held types closed under the taxonomy), no pruning, depth limit 15.",
+  "improved": "Same search domain, but first propagates taxonomy-based forward and backward type reachability to prune tools that cannot contribute to the goal, then runs best-first search ordered by an estimated distance-to-goal.",
+  "metrics": {
+    "baseline_score": 0.05397807105555488,
+    "improved_score": 0.00015864988888757302,
+    "improvement": 0.05381942116666731,
+    "baseline_runtime_std": 0.06869572185435063,
+    "improved_runtime_std": 0.00010451317046386962,
+    "baseline_solved_frac": 1.0,
+    "improved_solved_frac": 1.0,
+    "n_test": 18,
+    "n_compared": 18,
+    "n_agree": 18,
+    "n_valid_chains_found": 11
+  },
+  "notes": "Synthetic domain, not the paper's pizza data; not the paper's ASP/Clingo or APE system. Both methods are deterministic, so seeds 42-44 repetition is not needed. Nothing is tuned; the train split is reserved and unused, and all metrics are on the test split. Runtimes are capped at the per-instance budget and depend on the machine. Unsolved-in-budget instances are excluded from the yes/no agreement check. The distance heuristic is not admissible; it only orders the search."
+}
